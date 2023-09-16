@@ -1,23 +1,46 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, Nav } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 const SearchFilter = (props) => {
+  const { handleFilterAllTodo, handleFilterDoneTodo, handleFilterInProcessTodo } = props;
+  const [tab, setTab] = useState(1);
+
+  const handleClickBtnAll = () => {
+    handleFilterAllTodo();
+    setTab(1);
+  };
+
+  const handleClickBtnDone = () => {
+    handleFilterDoneTodo();
+    setTab(1);
+  };
+
+  const handleClickBtnInProcess = () => {
+    handleFilterInProcessTodo();
+    setTab(1);
+  };
+
   return (
-    <Nav justify variant="pills" defaultActiveKey="1" className="mt-3">
-      <Nav.Item>
-        <Nav.Link eventKey="1">All</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="2">Done</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="3">In-process</Nav.Link>
-      </Nav.Item>
-    </Nav>
+    <div className="d-flex gap-3 my-3">
+      <Button style={{ width: '100%' }} variant={tab === 1 ? 'primary' : 'outline-primary'} onClick={handleClickBtnAll}>
+        All
+      </Button>
+      <Button
+        style={{ width: '100%' }}
+        variant={tab === 2 ? 'primary' : 'outline-primary'}
+        onClick={handleClickBtnDone}
+      >
+        Done
+      </Button>
+      <Button
+        style={{ width: '100%' }}
+        variant={tab === 3 ? 'primary' : 'outline-primary'}
+        onClick={handleClickBtnInProcess}
+      >
+        In-process
+      </Button>
+    </div>
   );
 };
-
-SearchFilter.propTypes = {};
 
 export default SearchFilter;
