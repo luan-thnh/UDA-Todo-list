@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import InputSearch from './InputSearch';
 import SearchFilter from './SearchFilter';
 import TodoItem from './TodoItem';
 import CreateFormModal from './CreateFormModal';
 import RemoveTodoModal from './RemoveTodoModal';
-
-TodoList.propTypes = {};
 
 function TodoList(props) {
   const [todoList, setTodoList] = useState([]);
@@ -18,7 +15,6 @@ function TodoList(props) {
 
   useEffect(() => {
     const storageTodoList = JSON.parse(localStorage.getItem('todoList'));
-
     setTodoList(storageTodoList || []);
   }, []);
 
@@ -44,23 +40,32 @@ function TodoList(props) {
   const handleRemoveTodo = () => {
     const newTodoList = [...todoList];
     const index = newTodoList.findIndex((newTodo) => newTodo.id === todo.id);
-    newTodoList.splice(index, 1);
 
-    setTodoList(newTodoList);
+    if (index >= 0) {
+      newTodoList.splice(index, 1);
 
-    const jsonTodoList = JSON.stringify(newTodoList);
-    localStorage.setItem('todoList', jsonTodoList);
+      setTodoList(newTodoList);
+
+      const jsonTodoList = JSON.stringify(newTodoList);
+      localStorage.setItem('todoList', jsonTodoList);
+    } else {
+      alert('Not found todo!');
+    }
   };
 
   const handleTodoStatusChange = (id) => {
     const newTodoList = [...todoList];
     const index = todoList.findIndex((todoItem) => todoItem.id === id);
 
-    newTodoList[index].status = newTodoList[index].status === 'in-process' ? 'done' : 'in-process';
-    setTodoList(newTodoList);
+    if (index >= 0) {
+      newTodoList[index].status = newTodoList[index].status === 'in-process' ? 'done' : 'in-process';
+      setTodoList(newTodoList);
 
-    const jsonTodoList = JSON.stringify(newTodoList);
-    localStorage.setItem('todoList', jsonTodoList);
+      const jsonTodoList = JSON.stringify(newTodoList);
+      localStorage.setItem('todoList', jsonTodoList);
+    } else {
+      alert('Not found todo!');
+    }
   };
 
   const handleCloseCreateModal = () => setShowCreateModal(false);
@@ -103,20 +108,24 @@ function TodoList(props) {
         />
       ))}
 
-      <CreateFormModal
-        todo={todo}
-        todoList={filterTodoList}
-        showCreateModal={showCreateModal}
-        handleSetTodo={handleSetTodo}
-        handleCreateTodo={handleCreateTodo}
-        handleCloseCreateModal={handleCloseCreateModal}
-      />
+      {showCreateModal && (
+        <CreateFormModal
+          todo={todo}
+          todoList={filterTodoList}
+          showCreateModal={showCreateModal}
+          handleSetTodo={handleSetTodo}
+          handleCreateTodo={handleCreateTodo}
+          handleCloseCreateModal={handleCloseCreateModal}
+        />
+      )}
 
-      <RemoveTodoModal
-        showRemoveModal={showRemoveModal}
-        handleRemoveTodo={handleRemoveTodo}
-        handleCloseRemoveModal={handleCloseRemoveModal}
-      />
+      {showRemoveModal && (
+        <RemoveTodoModal
+          showRemoveModal={showRemoveModal}
+          handleRemoveTodo={handleRemoveTodo}
+          handleCloseRemoveModal={handleCloseRemoveModal}
+        />
+      )}
     </div>
   );
 }

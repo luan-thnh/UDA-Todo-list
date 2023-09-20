@@ -10,8 +10,6 @@ function CreateFormModal(props) {
   const [error, setError] = useState(false);
   const inputRef = useRef(null);
 
-  console.log(todo);
-
   useEffect(() => {
     if (todo) {
       inputRef.current.value = todo.title;
