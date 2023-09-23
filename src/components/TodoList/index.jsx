@@ -83,9 +83,7 @@ function TodoList(props) {
 
   return (
     <div className="p-4 shadow rounded" style={{ width: 550, margin: '0 auto' }}>
-      <h2 className="text-center text-danger mt-3" style={{ fontFamily: 'Pacifico' }}>
-        TODO
-      </h2>
+      <h2 className="text-center text-danger mt-3">TODO</h2>
       <InputSearch
         handleSetTodo={handleSetTodo}
         handleSetSearch={handleSetSearch}

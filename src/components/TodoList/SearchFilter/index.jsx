@@ -12,12 +12,12 @@ const SearchFilter = (props) => {
 
   const handleClickBtnDone = () => {
     handleFilterDoneTodo();
-    setTab(1);
+    setTab(2);
   };
 
   const handleClickBtnInProcess = () => {
     handleFilterInProcessTodo();
-    setTab(1);
+    setTab(3);
   };
 
   return (

@@ -32,8 +32,8 @@ function CreateFormModal(props) {
       input.value = '';
     } else {
       setError(true);
-      input.focus();
     }
+    input.focus();
   };
 
   return (
