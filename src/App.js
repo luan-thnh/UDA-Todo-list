@@ -1,13 +1,11 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from 'react-bootstrap';
-import TodoList from './components/TodoList';
-import Pizza from './components/Pizza';
+import AppRouter from './router';
 
 function App() {
   return (
     <div className="container mt-5">
-      <Pizza />
+      <AppRouter />
     </div>
   );
 }
